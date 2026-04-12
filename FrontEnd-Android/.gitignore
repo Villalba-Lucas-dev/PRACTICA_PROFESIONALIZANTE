@@ -1,0 +1,15 @@
+# Archivos de compilación
+*.iml
+.gradle/
+/build/
+/app/build/
+
+# Archivos locales y configuraciones de usuario
+local.properties
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Entorno de Android Studio / IntelliJ
+.idea/
