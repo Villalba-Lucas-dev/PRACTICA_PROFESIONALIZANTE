@@ -1,8 +1,13 @@
-package com.gymApp.backend;
+package com.gymApp.backend; // Modificá esto si tu paquete raíz se llama distinto
 
-@org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class BackendApplication {
-    public BackendApplication() { /* compiled code */ }
 
-    public static void main(java.lang.String[] args) { /* compiled code */ }
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApplication.class, args);
+    }
+
 }
