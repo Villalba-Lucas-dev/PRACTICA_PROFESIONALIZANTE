@@ -1,13 +1,17 @@
 package com.gymApp.backend.controllers;
 
 import com.gymApp.backend.models.Cliente;
+import com.gymApp.backend.models.LoginDTO;
 import com.gymApp.backend.models.RegistroClienteDTO;
 import com.gymApp.backend.repositories.ClienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController // Le dice a Spring que esta clase va a recibir peticiones de internet
 @RequestMapping("/api/auth")
@@ -47,5 +51,31 @@ public class AuthController {
 
         // 5. Responderle a la App de Android (Retrofit) que todo salió perfecto
         return ResponseEntity.ok("¡Cuenta creada con éxito!");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> iniciarSesion(@RequestBody @Valid LoginDTO dto) {
+
+        // 1. Buscamos si existe un cliente con ese correo
+        Optional<Cliente> clienteBuscado = clienteRepository.findByMail(dto.mail());
+
+        // Si el correo no existe en la base de datos, rebotamos
+        if (clienteBuscado.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Correo o contraseña incorrectos");
+        }
+
+        // 2. Extraemos el cliente real de adentro del Optional
+        Cliente cliente = clienteBuscado.get();
+
+        // 3. Comparamos la contraseña que viene de Android con la encriptada en la BD
+        boolean passwordCorrecta = passwordEncoder.matches(dto.password(), cliente.getPassword());
+
+        if (passwordCorrecta) {
+            // coincide, acá generaremos un Token JWT
+            return ResponseEntity.ok("¡Login exitoso!");
+        } else {
+            // Contraseña equivocada
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Correo o contraseña incorrectos");
+        }
     }
 }
