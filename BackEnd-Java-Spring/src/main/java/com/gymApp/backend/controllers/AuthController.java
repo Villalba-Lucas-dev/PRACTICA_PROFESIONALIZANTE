@@ -26,7 +26,6 @@ public class AuthController {
     public ResponseEntity<?> registrarCliente(@RequestBody @Valid RegistroClienteDTO dto) {
 
         // 1. Verificamos si el correo ya existe en la Base de Datos
-        // (Asegurate de tener el método existsByMail en tu ClienteRepository)
         if (clienteRepository.existsByMail(dto.mail())) {
             return ResponseEntity.badRequest().body("Error: El correo ya está registrado");
         }
