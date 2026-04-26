@@ -1,0 +1,39 @@
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.jks
+*.keystore
+.idea/
+
+# === JAVA / MAVEN ===
+target/
+*.log
+
+# === ANDROID / GRADLE ===
+.gradle/
+local.properties
+build/
+*/build/
+
+# APKs y compilados
+*.apk
+*.dex
+*.class
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
