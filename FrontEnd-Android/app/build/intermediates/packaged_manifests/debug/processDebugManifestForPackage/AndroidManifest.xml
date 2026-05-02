@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="26"
         android:targetSdkVersion="36" />
-
     <!-- Agregamos acceso a internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -32,7 +31,7 @@
         android:theme="@style/Theme.Tesis"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.example.tesis.MainActivity"
+            android:name="com.example.tesis.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.tesis.MainActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

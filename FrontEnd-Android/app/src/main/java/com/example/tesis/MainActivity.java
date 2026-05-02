@@ -1,5 +1,6 @@
 package com.example.tesis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -94,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
 
                     // 5. Redirección al Login
-                    // Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    // startActivity(intent);
-                    // finish(); // Cierra la pantalla de registro
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish(); // Cierra la pantalla de registro
                 } else {
                     try{
                         String mensaje = response.errorBody().string();
