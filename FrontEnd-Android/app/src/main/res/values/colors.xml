@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gym_background">#121212</color>
+    <color name="gym_background">#282828</color>
     <color name="gym_green">#00E676</color>
     <color name="gym_gray_input">#2C2C2C</color>
     <color name="gym_text_light">#FFFFFF</color>

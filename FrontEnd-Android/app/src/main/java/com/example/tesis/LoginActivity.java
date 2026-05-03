@@ -65,17 +65,18 @@ public class LoginActivity extends AppCompatActivity {
 
         // Hacemos la llamada
         Call<Void> call = apiService.loginCliente(request);
-        call.enqueue(new Callback<Void>(){
+        call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "¡Bienvenido al Gym!", Toast.LENGTH_SHORT).show();
 
-                    // el Intent para ir a la pantalla Principal/Home
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish(); // para que el usuario no vuelva al login con el botón 'atrás'
+                    // --------------------------------
                 } else {
-                    String mensaje=response.errorBody().toString();
-                    // Si el backend devuelve un error (ej. contraseña incorrecta)
-                    Toast.makeText(LoginActivity.this, "Credenciales incorrectas \n Usuario no hallado", Toast.LENGTH_LONG).show(); //mostrar la infor del response.errorBody
+                    Toast.makeText(LoginActivity.this, "Correo o contraseña incorrectos", Toast.LENGTH_LONG).show();
                 }
             }
 

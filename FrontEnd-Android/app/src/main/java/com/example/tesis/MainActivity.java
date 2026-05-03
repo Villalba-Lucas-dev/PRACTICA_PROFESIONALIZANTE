@@ -7,9 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.IOException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        int edad = Integer.parseInt(edadStr);
-        if(edad>100 || edad<0)
-        {
-            etEdad.setError("usar una edad valida(0-100)");
-            return;
-        }
-
         // 2. Regex de Correo
         if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             etCorreo.setError("Formato de correo inválido");
@@ -84,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // 5. Check edad
+        int edad = Integer.parseInt(edadStr);
+        if (edad<=0){
+            etEdad.setError("La edad tiene que ser mayor a 0");
+            return;
+        }
         Cliente nuevoCliente = new Cliente(nombre, apellido, edad, correo, password);
 
         GymApiService apiService = RetrofitClient.getClient().create(GymApiService.class);
@@ -93,41 +89,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Registrado", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "¡Registro exitoso!", Toast.LENGTH_LONG).show();
 
-                    // 5. Redirección al Login
+                    // 6. Redirección al Login
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish(); // Cierra la pantalla de registro
                 } else {
-                    try{
-                        String mensaje = response.errorBody().string();
-                        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
-
-                    }catch (Exception exception)
-                    {
-                        Toast.makeText(MainActivity.this,"error desconocido",Toast.LENGTH_LONG).show();
-                    }
-
+                    Toast.makeText(MainActivity.this, "Error: El correo ya está registrado.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
-                String mensaje;
-
-                if (t instanceof java.net.UnknownHostException) {
-                    mensaje = "No hay conexión a internet";
-                } else if (t instanceof java.net.ConnectException) {
-                    mensaje = "No se puede conectar al servidor";
-                } else if (t instanceof java.net.SocketTimeoutException) {
-                    mensaje = "Tiempo de espera agotado";
-                } else {
-                    mensaje = "Error: " + t.getMessage();
-                }
-
-                Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_LONG).show();
             }
         });
     }
