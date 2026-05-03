@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. Check edad
         int edad = Integer.parseInt(edadStr);
-        if (edad<=0){
-            etEdad.setError("La edad tiene que ser mayor a 0");
+        if (edad<=0 || edad>=100){
+            etEdad.setError("La edad tiene que ser 0-100");
             return;
         }
         Cliente nuevoCliente = new Cliente(nombre, apellido, edad, correo, password);
