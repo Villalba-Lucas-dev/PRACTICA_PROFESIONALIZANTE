@@ -1,4 +1,4 @@
-#Sat Apr 18 18:03:04 ART 2026
+#Sun May 03 17:17:33 ART 2026
 base.0=C\:\\Users\\PC\\Desktop\\Cosas\\issd\\pp2\\PRACTICA_PROFESIONALIZANTE\\FrontEnd-Android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\PC\\Desktop\\Cosas\\issd\\pp2\\PRACTICA_PROFESIONALIZANTE\\FrontEnd-Android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\PC\\Desktop\\Cosas\\issd\\pp2\\PRACTICA_PROFESIONALIZANTE\\FrontEnd-Android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex

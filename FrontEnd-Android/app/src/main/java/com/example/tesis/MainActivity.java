@@ -74,7 +74,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // 5. Check edad
         int edad = Integer.parseInt(edadStr);
+        if (edad<=0){
+            etEdad.setError("La edad tiene que ser mayor a 0");
+            return;
+        }
         Cliente nuevoCliente = new Cliente(nombre, apellido, edad, correo, password);
 
         GymApiService apiService = RetrofitClient.getClient().create(GymApiService.class);
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "¡Registro exitoso!", Toast.LENGTH_LONG).show();
 
-                    // 5. Redirección al Login
+                    // 6. Redirección al Login
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish(); // Cierra la pantalla de registro

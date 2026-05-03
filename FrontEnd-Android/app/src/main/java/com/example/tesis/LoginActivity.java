@@ -69,10 +69,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "¡Bienvenido al Gym!", Toast.LENGTH_LONG).show();
-                    // el Intent para ir a la pantalla Principal/Home
+                    Toast.makeText(LoginActivity.this, "¡Bienvenido al Gym!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish(); // para que el usuario no vuelva al login con el botón 'atrás'
+                    // --------------------------------
                 } else {
-                    // Si el backend devuelve un error (ej. contraseña incorrecta)
                     Toast.makeText(LoginActivity.this, "Correo o contraseña incorrectos", Toast.LENGTH_LONG).show();
                 }
             }
