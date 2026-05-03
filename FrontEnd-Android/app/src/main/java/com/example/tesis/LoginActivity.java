@@ -64,22 +64,23 @@ public class LoginActivity extends AppCompatActivity {
         GymApiService apiService = RetrofitClient.getClient().create(GymApiService.class);
 
         // Hacemos la llamada
-        Call<String> call = apiService.loginCliente(request);
-        call.enqueue(new Callback<String>(){
+        Call<Void> call = apiService.loginCliente(request);
+        call.enqueue(new Callback<Void>(){
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_LONG).show();
+
                     // el Intent para ir a la pantalla Principal/Home
                 } else {
                     String mensaje=response.errorBody().toString();
                     // Si el backend devuelve un error (ej. contraseña incorrecta)
-                    Toast.makeText(LoginActivity.this, mensaje, Toast.LENGTH_LONG).show(); //mostrar la infor del response.errorBody
+                    Toast.makeText(LoginActivity.this, "Credenciales incorrectas \n Usuario no hallado", Toast.LENGTH_LONG).show(); //mostrar la infor del response.errorBody
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Error de red. Verificá tu conexión.", Toast.LENGTH_LONG).show();
             }
         });

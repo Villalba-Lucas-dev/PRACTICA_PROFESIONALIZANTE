@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        int edad = Integer.parseInt(edadStr);
+        if(edad>100 || edad<0)
+        {
+            etEdad.setError("usar una edad valida(0-100)");
+            return;
+        }
+
         // 2. Regex de Correo
         if (!correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             etCorreo.setError("Formato de correo inválido");
@@ -77,22 +84,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        int edad = Integer.parseInt(edadStr);
-        if(edad>100 || edad<0)
-        {
-            etEdad.setError("usar una edad valida(0-100)");
-        }
         Cliente nuevoCliente = new Cliente(nombre, apellido, edad, correo, password);
 
         GymApiService apiService = RetrofitClient.getClient().create(GymApiService.class);
-        Call<String> call = apiService.registrarCliente(nuevoCliente);
+        Call<Void> call = apiService.registrarCliente(nuevoCliente);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    String mensaje = response.body();
-                    Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Registrado", Toast.LENGTH_LONG).show();
 
                     // 5. Redirección al Login
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
                 String mensaje;
 
