@@ -6,7 +6,7 @@ import retrofit2.http.POST;
 
 public interface GymApiService {
 
-    // Le indicamos que es un método POST y la ruta exacta del backend
+    // Le indicamos que es un método POST y la ruta del backend
     @POST("/api/auth/registro")
     Call<Void> registrarCliente(@Body Cliente nuevoCliente);
 
