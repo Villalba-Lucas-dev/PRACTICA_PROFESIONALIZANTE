@@ -18,36 +18,51 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etLoginCorreo, etLoginPassword;
     private Button btnLogin;
-    private TextView tvIrARegistro;
+    private TextView tvIrARegistro, tvIrARecuperacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        enlazarVistas(); //los enlazes al xml
+        configEventos(); //la configuracion de eventos tactiles
+
+
+    }
+
+    private void enlazarVistas() {
         // 1. Enlazamos las variables con los IDs del XML
         etLoginCorreo = findViewById(R.id.etLoginCorreo);
         etLoginPassword = findViewById(R.id.etLoginPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvIrARegistro = findViewById(R.id.tvIrARegistro);
+        tvIrARecuperacion = findViewById(R.id.tvIrARecuperacion);
 
+    }
+
+    private void configEventos()
+    {
         // 2. Acción del botón Entrar
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iniciarSesion();
-            }
-        });
+        btnLogin.setOnClickListener(v -> iniciarSesion());
 
         // 3. Acción del texto para volver al Registro (si el usuario se equivocó)
-        tvIrARegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Cerramos el login
-            }
-        });
+        tvIrARegistro.setOnClickListener(v -> abrirRegistro());
+
+        tvIrARecuperacion.setOnClickListener(v -> abrirRecuperacion());
+    }
+
+    public void abrirRegistro() {
+        Intent registroIntent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(registroIntent);
+        finish(); // Cerramos el login
+    }
+
+    public void abrirRecuperacion()
+    {
+        Intent recuperacionIntent = new Intent(LoginActivity.this, RecuperacionActivity.class);
+        startActivity(recuperacionIntent);
+        finish(); // Cerramos el login
     }
 
     private void iniciarSesion() {
@@ -65,34 +80,25 @@ public class LoginActivity extends AppCompatActivity {
         GymApiService apiService = RetrofitClient.getClient().create(GymApiService.class);
 
         // Hacemos la llamada
-        Call<AuthResponse> call = apiService.loginCliente(request);
-        call.enqueue(new Callback<AuthResponse>() {
+        Call<Void> call = apiService.loginCliente(request);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    AuthResponse authData = response.body();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "¡Bienvenido al Gym!", Toast.LENGTH_SHORT).show();
 
-                    // 1. Guardamos el Rol y el ID en la memoria del celular (SharedPreferences)
-                    SharedPreferences prefs = getSharedPreferences("GymAppPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("ROL_USUARIO", authData.getRol());
-                    editor.putInt("ID_USUARIO", authData.getIdUsuario());
-                    editor.apply();
-
-                    Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
-
-                    // 2. Saltamos al Home
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
-                    finish();
+                    finish(); // para que el usuario no vuelva al login con el botón 'atrás'
+                    // --------------------------------
                 } else {
-                    Toast.makeText(LoginActivity.this, "Error: Correo, contraseña incorrectos o cuenta inactiva", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Correo o contraseña incorrectos", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error de red", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error de red. Verificá tu conexión.", Toast.LENGTH_LONG).show();
             }
         });
     }
