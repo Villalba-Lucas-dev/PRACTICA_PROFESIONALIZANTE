@@ -77,4 +77,15 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Correo o contraseña incorrectos");
         }
     }
+
+@PostMapping("/recuperar")
+    public ResponseEntity<?>recuperarPassword
+        (
+                @RequestBody RecuperacionrRequest request
+        )
+        {
+            recuperacionService.enviarCodigo(request.getCorreo());
+            return ResponseEntity.ok("Código enviado al correo");
+        }
+
 }

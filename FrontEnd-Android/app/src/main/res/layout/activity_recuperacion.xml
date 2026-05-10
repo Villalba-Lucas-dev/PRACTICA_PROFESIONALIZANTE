@@ -50,7 +50,7 @@
             android:layout_height="56dp" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/etCorreo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="25dp"

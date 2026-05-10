@@ -32,7 +32,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--espacio para activities-->
         <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".RecuperacionActivity" />
+
+
+
+
+
+
+
     </application>
 
 </manifest>
