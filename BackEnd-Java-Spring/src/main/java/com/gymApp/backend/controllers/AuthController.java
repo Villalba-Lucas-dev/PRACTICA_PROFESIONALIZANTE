@@ -1,5 +1,6 @@
 package com.gymApp.backend.controllers;
 
+import com.gymApp.backend.models.AuthResponseDTO;
 import com.gymApp.backend.models.Cliente;
 import com.gymApp.backend.models.LoginDTO;
 import com.gymApp.backend.models.RegistroClienteDTO;
@@ -41,14 +42,14 @@ public class AuthController {
         nuevoCliente.setEdad(dto.edad());
         nuevoCliente.setMail(dto.mail());
 
-        // 3. ¡Hasheamos la contraseña antes de guardarla!
+        // 3. Hasheamos la contraseña antes de guardarla
         String passwordEncriptada = passwordEncoder.encode(dto.password());
         nuevoCliente.setPassword(passwordEncriptada);
 
         // 4. Guardamos en PostgreSQL
         clienteRepository.save(nuevoCliente);
 
-        // 5. Responderle a la App de Android (Retrofit) que todo salió perfecto
+        // 5. Responderle a la App de Android (Retrofit) que salio bien
         return ResponseEntity.ok("¡Cuenta creada con éxito!");
     }
 
@@ -66,12 +67,22 @@ public class AuthController {
         // 2. Extraemos el cliente real de adentro del Optional
         Cliente cliente = clienteBuscado.get();
 
+        // Verificamos si la cuenta esta activa
+        if (!cliente.isActivo()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error: Tu cuenta ha sido desactivada por un administrador.");
+        }
+
         // 3. Comparamos la contraseña que viene de Android con la encriptada en la BD
         boolean passwordCorrecta = passwordEncoder.matches(dto.password(), cliente.getPassword());
 
         if (passwordCorrecta) {
-            // coincide, acá generaremos un Token JWT
-            return ResponseEntity.ok("¡Login exitoso!");
+            // Armamos el paquete con el mensaje, el rol que tiene en la BD y su ID
+            AuthResponseDTO respuesta = new AuthResponseDTO(
+                    "¡Login exitoso!",
+                    cliente.getRol(),
+                    cliente.getIdUsuario()
+            );
+            return ResponseEntity.ok(respuesta);
         } else {
             // Contraseña equivocada
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Correo o contraseña incorrectos");

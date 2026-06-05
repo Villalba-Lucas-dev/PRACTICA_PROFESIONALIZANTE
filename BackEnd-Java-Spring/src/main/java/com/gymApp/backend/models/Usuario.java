@@ -26,6 +26,22 @@ public class Usuario {
     @Column(nullable = false, length = 50, unique = true)
     private String mail;
 
+    @Enumerated(EnumType.STRING)
+    private Rol rol = Rol.CLIENTE; // Por defecto el que se registra es un cliente normal
+
+    private boolean activo = true; // Por defecto la cuenta nace activa
+
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
     // JPA exige tener un constructor vacío
     public Usuario() {
     }

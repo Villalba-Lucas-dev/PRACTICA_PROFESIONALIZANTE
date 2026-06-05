@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mi Perfil"
+        android:textColor="#00C853"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Nombre" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilNombre" android:layout_width="match_parent" android:layout_height="50dp"
+        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Apellido" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilApellido" android:layout_width="match_parent" android:layout_height="50dp"
+        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Correo Electrónico (No modificable)" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilCorreo" android:layout_width="match_parent" android:layout_height="50dp"
+        android:background="#1E1E1E" android:textColor="#777777" android:enabled="false" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Edad" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilEdad" android:layout_width="match_parent" android:layout_height="50dp"
+        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:inputType="number" android:layout_marginBottom="32dp"/>
+
+    <Button android:id="@+id/btnGuardarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Guardar Cambios"
+        android:backgroundTint="#00C853"
+        android:textColor="#FFF"/>
+
+</LinearLayout>

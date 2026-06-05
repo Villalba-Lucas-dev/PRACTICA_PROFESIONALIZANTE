@@ -21,7 +21,7 @@ public class SecurityConfig {
                 // Configuramos las reglas de las rutas
                 .authorizeHttpRequests(auth -> auth
                         // Liberamos (permitimos a todos) cualquier ruta que empiece con /api/auth/
-                        .requestMatchers("/api/auth/**", "/error").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/admin/**", "/api/usuarios/**").permitAll()
                         // Cualquier otra ruta de la app va a requerir estar logueado
                         .anyRequest().authenticated()
                 );

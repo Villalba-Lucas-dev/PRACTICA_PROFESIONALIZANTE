@@ -79,6 +79,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llMiPerfil"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_columnWeight="1"
@@ -124,6 +125,18 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </GridLayout>
+
+    <!-- Boton para Administradores (Oculto por defecto) -->
+    <Button
+        android:id="@+id/btnPanelAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🛡️ PANEL DE ADMINISTRADOR"
+        android:backgroundTint="#FFD700"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnLogout"
