@@ -1,5 +1,6 @@
 package com.gymApp.backend.controllers;
 
+import com.gymApp.backend.models.recuperacion.*;
 import com.gymApp.backend.models.AuthResponseDTO;
 import com.gymApp.backend.models.Cliente;
 import com.gymApp.backend.models.LoginDTO;
@@ -11,12 +12,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import com.gymApp.backend.services.RecuperacionService;
 
 import java.util.Optional;
 
 @RestController // Le dice a Spring que esta clase va a recibir peticiones de internet
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    //enlace a RecuperacionService
+    @Autowired
+    private RecuperacionService recuperacionService;
 
     // Inyectamos el repositorio creado para poder hablar con PostgreSQL
     @Autowired
@@ -89,14 +95,12 @@ public class AuthController {
         }
     }
 
-@PostMapping("/recuperar")
-    public ResponseEntity<?>recuperarPassword
-        (
-                @RequestBody RecuperacionrRequest request
-        )
-        {
-            recuperacionService.enviarCodigo(request.getCorreo());
-            return ResponseEntity.ok("Código enviado al correo");
-        }
+    @PostMapping("/recuperar")
+    public ResponseEntity<?> recuperarPassword(
+            @RequestBody RecuperacionRequest request
+    ) {
+        recuperacionService.enviarCodigo(request.correo());
+        return ResponseEntity.ok("Código enviado al correo");
+    }
 
 }
