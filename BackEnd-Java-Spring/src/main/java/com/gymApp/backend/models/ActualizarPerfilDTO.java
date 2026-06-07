@@ -15,5 +15,6 @@ public record ActualizarPerfilDTO(
         @NotNull(message = "La edad es obligatoria")
         @Min(value = 15, message = "La edad mínima permitida es 15 años")
         @Max(value = 100, message = "La edad máxima permitida es 100 años")
-        Integer edad
+        Integer edad,
+        String observacionesMedicas
 ) {}

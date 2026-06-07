@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -13,7 +14,7 @@ import retrofit2.Response;
 
 public class PerfilActivity extends AppCompatActivity {
 
-    private EditText etNombre, etApellido, etCorreo, etEdad;
+    private EditText etNombre, etApellido, etCorreo, etEdad, etObs, etRol;
     private Button btnGuardar;
     private GymApiService apiService;
     private Integer idUsuarioLogueado;
@@ -28,6 +29,8 @@ public class PerfilActivity extends AppCompatActivity {
         etCorreo = findViewById(R.id.etPerfilCorreo);
         etEdad = findViewById(R.id.etPerfilEdad);
         btnGuardar = findViewById(R.id.btnGuardarPerfil);
+        etObs = findViewById(R.id.etPerfilObs);
+        etRol = findViewById(R.id.etPerfilRol);
 
         apiService = RetrofitClient.getClient().create(GymApiService.class);
 
@@ -51,6 +54,9 @@ public class PerfilActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> finish()); // finish() destruye la pantalla actual y vuelve a la anterior
     }
 
     // precargar datos
@@ -65,9 +71,14 @@ public class PerfilActivity extends AppCompatActivity {
                     etNombre.setText(cliente.getNombre());
                     etApellido.setText(cliente.getApellido());
                     etCorreo.setText(cliente.getMail()); // El correo se muestra pero no se edita
+                    etRol.setText(cliente.getRol());
 
                     if (cliente.getEdad() != null) {
                         etEdad.setText(String.valueOf(cliente.getEdad()));
+                    }
+
+                    if (cliente.getObservacionesMedicas() != null) {
+                        etObs.setText(cliente.getObservacionesMedicas());
                     }
                 }
             }
@@ -106,6 +117,8 @@ public class PerfilActivity extends AppCompatActivity {
         if (edad < 15) {
             etEdad.setError("La edad mínima es de 15 años"); // error edad minima
             return false;
+        } else if (edad > 100) {
+            etEdad.setError("La edad máxima es de 100 años"); // error edad maxima
         }
 
         return true;
@@ -116,8 +129,9 @@ public class PerfilActivity extends AppCompatActivity {
         String nombre = etNombre.getText().toString().trim();
         String apellido = etApellido.getText().toString().trim();
         Integer edad = Integer.parseInt(etEdad.getText().toString().trim());
+        String observaciones = etObs.getText().toString().trim();
 
-        ActualizarPerfilRequest request = new ActualizarPerfilRequest(nombre, apellido, edad);
+        ActualizarPerfilRequest request = new ActualizarPerfilRequest(nombre, apellido, edad, observaciones);
         Call<Void> call = apiService.actualizarMiPerfil(idUsuarioLogueado, request);
 
         call.enqueue(new Callback<Void>() {

@@ -2,44 +2,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#282828"
     android:orientation="vertical"
-    android:background="#121212"
     android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <ImageButton
+            android:id="@+id/btnVolver"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_flecha_volver"
+            app:tint="#FFFFFF"
+            android:background="#333333"
+            android:scaleType="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mi Perfil" android:textColor="#00C853" android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mi Perfil"
-        android:textColor="#00C853"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+        android:text="Nombre"
+        android:textColor="#A0A0A0" />
+
+    <EditText
+        android:id="@+id/etPerfilNombre"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="#333333"
+        android:paddingStart="16dp"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apellido"
+        android:textColor="#A0A0A0" />
+
+    <EditText
+        android:id="@+id/etPerfilApellido"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="#333333"
+        android:paddingStart="16dp"
+        android:textColor="#FFF" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Nombre" android:textColor="#A0A0A0" />
-    <EditText android:id="@+id/etPerfilNombre" android:layout_width="match_parent" android:layout_height="50dp"
-        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
-
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Apellido" android:textColor="#A0A0A0" />
-    <EditText android:id="@+id/etPerfilApellido" android:layout_width="match_parent" android:layout_height="50dp"
-        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
-
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Correo Electrónico (No modificable)" android:textColor="#A0A0A0" />
-    <EditText android:id="@+id/etPerfilCorreo" android:layout_width="match_parent" android:layout_height="50dp"
+        android:text="Rol asignado" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilRol" android:layout_width="match_parent" android:layout_height="50dp"
         android:background="#1E1E1E" android:textColor="#777777" android:enabled="false" android:paddingStart="16dp" android:layout_marginBottom="16dp"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Edad" android:textColor="#A0A0A0" />
-    <EditText android:id="@+id/etPerfilEdad" android:layout_width="match_parent" android:layout_height="50dp"
-        android:background="#333333" android:textColor="#FFF" android:paddingStart="16dp" android:inputType="number" android:layout_marginBottom="32dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Correo Electrónico (No modificable)"
+        android:textColor="#A0A0A0" />
 
-    <Button android:id="@+id/btnGuardarPerfil"
+    <EditText
+        android:id="@+id/etPerfilCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="#1E1E1E"
+        android:enabled="false"
+        android:paddingStart="16dp"
+        android:textColor="#777777" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edad"
+        android:textColor="#A0A0A0" />
+
+    <EditText
+        android:id="@+id/etPerfilEdad"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="#333333"
+        android:inputType="number"
+        android:paddingStart="16dp"
+        android:textColor="#FFF" />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Observaciones Médicas" android:textColor="#A0A0A0" />
+    <EditText android:id="@+id/etPerfilObs" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:minLines="3" android:gravity="top|start" android:inputType="textMultiLine"
+        android:background="#333333" android:textColor="#FFF" android:padding="16dp" android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/btnGuardarPerfil"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="Guardar Cambios"
         android:backgroundTint="#00C853"
-        android:textColor="#FFF"/>
+        android:text="Guardar Cambios"
+        android:textColor="#FFF" />
 
 </LinearLayout>

@@ -8,6 +8,7 @@ public class ClienteResponse {
     private String rol;
     private boolean activo;
     private Integer edad;
+    private String observacionesMedicas;
 
     // Getters
     public Integer getIdUsuario() { return idUsuario; }
@@ -17,4 +18,5 @@ public class ClienteResponse {
     public String getRol() { return rol; }
     public boolean isActivo() { return activo; }
     public Integer getEdad() { return edad; }
+    public String getObservacionesMedicas() { return observacionesMedicas; }
 }

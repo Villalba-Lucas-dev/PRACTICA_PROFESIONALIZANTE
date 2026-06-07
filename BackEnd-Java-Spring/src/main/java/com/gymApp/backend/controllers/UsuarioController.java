@@ -43,6 +43,7 @@ public class UsuarioController {
         cliente.setNombre(dto.nombre());
         cliente.setApellido(dto.apellido());
         cliente.setEdad(dto.edad());
+        cliente.setObservacionesMedicas(dto.observacionesMedicas());
 
         clienteRepository.save(cliente); // Guardamos en PostgreSQL
 
