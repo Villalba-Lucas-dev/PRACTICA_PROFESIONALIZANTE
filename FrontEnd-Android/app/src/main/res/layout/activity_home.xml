@@ -138,6 +138,18 @@
         android:visibility="gone"
         android:layout_marginTop="16dp" />
 
+    <!-- Boton para Entrenadores (Oculto por defecto) -->
+    <Button
+        android:id="@+id/btnPanelEntrenador"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="📋 MIS ALUMNOS Y RUTINAS"
+        android:backgroundTint="#FF9800"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"

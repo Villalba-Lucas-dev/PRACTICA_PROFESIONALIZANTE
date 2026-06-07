@@ -18,20 +18,23 @@ public class HomeActivity extends AppCompatActivity {
 
         Button btnLogout = findViewById(R.id.btnLogout);
         Button btnPanelAdmin = findViewById(R.id.btnPanelAdmin); // Enlazamos el boton de admin
+        Button btnPanelEntrenador = findViewById(R.id.btnPanelEntrenador);
         LinearLayout llMiPerfil = findViewById(R.id.llMiPerfil);
 
         // 1. Recuperamos las credenciales de la memoria del celular
         SharedPreferences prefs = getSharedPreferences("GymAppPrefs", MODE_PRIVATE);
         // Pedimos el rol. Si por algun motivo hay un error y no hay rol, le damos "CLIENTE" por defecto por seguridad.
         String rolUsuario = prefs.getString("ROL_USUARIO", "CLIENTE");
+        btnPanelAdmin.setVisibility(View.GONE);
+        btnPanelEntrenador.setVisibility(View.GONE);
 
         // 2. Lógica de control de acceso
         if ("ADMIN".equals(rolUsuario)) {
             // Si es admin, hacemos aparecer el botón
             btnPanelAdmin.setVisibility(View.VISIBLE);
-        } else {
-            // Si no es admin, nos aseguramos de que siga oculto
-            btnPanelAdmin.setVisibility(View.GONE);
+        } else if ("ENTRENADOR".equals(rolUsuario)) {
+            // Si es entrenador, mostramos su sección de alumnos
+            btnPanelEntrenador.setVisibility(View.VISIBLE);
         }
 
         // 3. Acción del boton Administrador
@@ -65,6 +68,14 @@ public class HomeActivity extends AppCompatActivity {
                 // Hacemos el salto a la pantalla de Perfil
                 Intent intent = new Intent(HomeActivity.this, PerfilActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // Dejamos preparado el clic del entrenador para el futuro
+        btnPanelEntrenador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.widget.Toast.makeText(HomeActivity.this, "Próximamente: Panel de Entrenador", android.widget.Toast.LENGTH_SHORT).show();
             }
         });
     }
